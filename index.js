@@ -36,9 +36,10 @@ function todos(state=[], action) {
         case "ADD_TODO" :
             return state.concat([action.todo]);
         case "REMOVE_TODO" :
-            console.log("TODO");
+            return state.filter((todo) => todo.id !== action.id)
         case "TOGGLE_TODO" :
-            console.log("TODO");
+            return state.map((todo) => todo.id !== action.id ? todo : 
+                Object.assign({}, todo, { complete: !todo.complete  }))
         default :
             return state;
     }
