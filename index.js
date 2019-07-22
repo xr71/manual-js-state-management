@@ -30,10 +30,16 @@ function createStore(reducer) {
     }
 }
 
+
+// APP CODE
+
+const ADD_TODO = "ADD_TODO";
+
+
 function todos(state=[], action) {
 
     switch (action.type) {
-        case "ADD_TODO" :
+        case ADD_TODO :
             return state.concat([action.todo]);
         case "REMOVE_TODO" :
             return state.filter((todo) => todo.id !== action.id)
@@ -56,3 +62,32 @@ function goals(state=[], action) {
             return state;
     }
 }
+
+function app(state={}, action) {
+    return {
+        todos: todos(state.todos, action),
+        goals: goals(state.goals, action)
+    }
+}
+
+mystore = createStore(app);
+
+mystore.subscribe(() => {
+    console.log(mystore.getState())
+})
+
+mystore.dispatch({
+    type: ADD_TODO,
+    todo: {
+        id:0,
+        name:"learning"
+    }
+})
+
+mystore.dispatch({
+    type: "ADD_GOAL",
+    goal: {
+        id:0,
+        name:"win"
+    }
+})
