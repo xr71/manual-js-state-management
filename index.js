@@ -39,6 +39,22 @@ const TOGGLE_TODO = "TOGGLE_TODO";
 const ADD_GOAL = "ADD_GOAL ";
 const REMOVE_GOAL = "REMOVE_GOAL";
 
+// function for action creators
+
+function addTodoAction(todo) {
+    return {
+        type: ADD_TODO,
+        todo: todo
+    }
+}
+
+function addGoalAction(goal) {
+    return {
+        type: ADD_GOAL,
+        goal: goal
+    }
+}
+
 function todos(state=[], action) {
 
     switch (action.type) {
@@ -79,29 +95,13 @@ mystore.subscribe(() => {
     console.log(mystore.getState())
 })
 
-mystore.dispatch({
-    type: ADD_TODO,
-    todo: {
-        id:0,
-        name:"learning"
-    }
-})
+mystore.dispatch(addTodoAction({id:0, name:"learning"}))
 
-mystore.dispatch({
-    type: ADD_TODO,
-    todo: {
-        id:1,
-        name:"more learning"
-    }
-})
+mystore.dispatch(addTodoAction({id:1, name:"more learning"}))
 
-mystore.dispatch({
-    type: ADD_TODO,
-    todo: {
-        id:2,
-        name:"okay too much learning"
-    }
-})
+mystore.dispatch(addTodoAction({id:2, name:"okay too much learning"}))
+
+
 
 mystore.dispatch({
     type: REMOVE_TODO,
