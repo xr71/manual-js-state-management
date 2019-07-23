@@ -77,6 +77,13 @@
             }
         }
 
+        function toggleTodoAction(id) {
+            return {
+                type: TOGGLE_TODO,
+                id: id
+            }
+        }
+
         function todos(state=[], action) {
             switch (action.type) {
                 case ADD_TODO :
@@ -113,6 +120,14 @@
 
         mystore.subscribe(() => {
             console.log(mystore.getState())
+
+            const { todos, goals } = mystore.getState();
+
+            document.getElementById("todos").innerHTML = "";
+            document.getElementById("goals").innerHTML = "";
+
+            todos.forEach(addTodoToDOM);
+            goals.forEach(addGoalToDOM);
         })
 
         // mystore.dispatch(addTodoAction({id:0, name:"learning"}))
@@ -173,6 +188,9 @@
             const text = document.createTextNode(todo.name);
 
             node.appendChild(text);
+            node.style.textDecoration = todo.complete ? 'line-through' : "none";
+            node.addEventListener("click", () => { mystore.dispatch(toggleTodoAction(todo.id)) })
+
             document.getElementById("todos").appendChild(node);
         }
 
